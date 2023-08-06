@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
+ 
 // Add services to the container.
 var connectiosString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddTransient<DataSeeder>();
