@@ -5,6 +5,7 @@ using ElkoodTask.Repositories.CompanyInfoRepository;
 using ElkoodTask.Repositories.DistributionOperationRepository;
 using ElkoodTask.Repositories.ProductionOperationRepository;
 using ElkoodTask.Repositories.ProductsInfoRepository;
+using ElkoodTask.Repositories.ProductsProducedRepository;
 using ElkoodTask.Repositories.ProductTypeRepository;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
-//I created only 3 interface instead of creating all of it, Beacuse the time.... Sorry :-( 
+
 builder.Services.AddTransient<IBranchTypesService, BranchTypesService>();
 builder.Services.AddTransient<IBranchesInfoService, BranchesInfoService>();
 builder.Services.AddTransient<IProductTypesService, ProductTypesService>();
@@ -33,6 +34,7 @@ builder.Services.AddTransient<IAllProductProducedService, AllProductProducedServ
 builder.Services.AddTransient<ICompaniesInfoService, CompaniesInfoService>();
 builder.Services.AddTransient<IDistributionOperationService, DistributionOperationService>();
 builder.Services.AddTransient<IProductionOperationService, ProductionOperationsService>();
+builder.Services.AddTransient<IProductsProducedService, ProductsProducedService>();
 builder.Services.AddTransient<IProductsInfoService, ProductsInfoService>();
 
 

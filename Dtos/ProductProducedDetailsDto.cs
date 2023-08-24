@@ -4,6 +4,6 @@
     {
         [MaxLength(length: 100)]
         public string ProductName { get; set; }
-        public int TotalQuantity { get; set; }
+        public int TotalQuantityProduced { get; set; }
     }
 }

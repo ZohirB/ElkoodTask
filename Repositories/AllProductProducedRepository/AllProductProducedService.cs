@@ -24,7 +24,7 @@ public class AllProductProducedService : IAllProductProducedService
             .Select(g => new ProductProducedDetailsDto
             {
                 ProductName = g.Key,
-                TotalQuantity = g.Sum(p => p.Quantity)
+                TotalQuantityProduced = g.Sum(p => p.Quantity)
             })
             .ToListAsync();
         return productDetails;

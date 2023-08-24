@@ -8,14 +8,13 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class ProductsInfoController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly IProductsInfoService _productsInfoService;
 
-        public ProductsInfoController(ApplicationDbContext context, IProductsInfoService productsInfoService)
+        public ProductsInfoController(IProductsInfoService productsInfoService)
         {
-            _context = context;
             _productsInfoService = productsInfoService;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllProductsInfo()

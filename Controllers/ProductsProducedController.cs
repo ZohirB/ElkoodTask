@@ -1,32 +1,30 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ElkoodTask.Repositories.ProductsProducedRepository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductsProducedController : ControllerBase
     {
-        private ApplicationDbContext _context;
-        public ProductsProducedController(ApplicationDbContext context)
+        private IProductsProducedService _productsProducedService;
+
+        public ProductsProducedController(IProductsProducedService productsProducedService)
         {
-            _context = context;
+            _productsProducedService = productsProducedService;
         }
+
         [HttpGet]
-        public IActionResult Get(string companyName, int primaryBranchId, DateTime fromDate, DateTime toDate)
+        public IActionResult GetAllProductsProduced(string companyName, int primaryBranchId, DateTime fromDate, DateTime toDate)
         {
-            var primaryBranch = _context.BranchInfo.FirstOrDefault(b => b.Id == primaryBranchId && b.CompanyInfo.Name.Equals(companyName) && b.BranchType.Name.Equals("Primary"));
-            if (primaryBranch == null)
+            var isValidPrimaryBranch = _productsProducedService.IsValidPrimaryBranch(primaryBranchId, companyName);
+            if (isValidPrimaryBranch == null)
             {
                 return BadRequest("Invalid primary branch or company name.");
             }
-            var quantitiesByProductName = _context.ProductionOperations
-                .Where(p => p.BranchInfoId == primaryBranchId && p.Date >= fromDate && p.Date <= toDate)
-                .GroupBy(p => p.ProductInfo.Name)
-                .Select(g => new { ProductName = g.Key, TotalQuantityProduced = g.Sum(p => p.Quantity) })
-                .ToList();
-
+            var quantitiesByProductName = _productsProducedService.GetAllProductsProduced(primaryBranchId, fromDate, toDate);
             return Ok(quantitiesByProductName);
         }
     }
