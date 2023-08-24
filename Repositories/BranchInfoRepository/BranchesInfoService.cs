@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Servies;
+namespace ElkoodTask.Repositories.BranchInfoRepository;
 
 public class BranchesInfoService : IBranchesInfoService
 {
@@ -28,7 +27,7 @@ public class BranchesInfoService : IBranchesInfoService
         return brancheInfo;
     }
     
-    public async Task<BranchInfo> AddBranchInfo(BranchInfoDto branchInfoDto)
+    public async Task<BranchInfo> CreateBranchInfo(BranchInfoDto branchInfoDto)
     {
         var branchInfo = new BranchInfo
         {

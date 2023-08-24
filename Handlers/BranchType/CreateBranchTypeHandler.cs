@@ -1,5 +1,5 @@
 ﻿using ElkoodTask.Queries;
-using ElkoodTask.Servies;
+using ElkoodTask.Repositories.BranchTypeRepository;
 using MediatR;
 
 namespace ElkoodTask.Handlers;
@@ -16,7 +16,7 @@ public class CreateBranchTypeHandler : IRequestHandler<CreateBranchTypeCommand, 
     public async Task<BranchType> Handle(CreateBranchTypeCommand request, CancellationToken cancellationToken)
     {
         var branchType = new BranchType { Name = request.Name};
-        await _branchTypesService.AddBranchType(branchType);
+        await _branchTypesService.CreateBranchType(branchType);
         return branchType;
     }
 }

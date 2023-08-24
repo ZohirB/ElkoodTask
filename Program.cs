@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 using ElkoodTask.Models;
-using ElkoodTask.Servies;
+using ElkoodTask.Repositories.AllProductProducedRepository;
+using ElkoodTask.Repositories.BranchInfoRepository;
+using ElkoodTask.Repositories.BranchTypeRepository;
+using ElkoodTask.Repositories.CompanyInfoRepository;
+using ElkoodTask.Repositories.DistributionOperationRepository;
+using ElkoodTask.Repositories.ProductTypeRepository;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
- 
+
 var builder = WebApplication.CreateBuilder(args);
  
 // Add services to the container.
@@ -29,7 +34,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IBranchTypesService, BranchTypesService>();
 builder.Services.AddTransient<IBranchesInfoService, BranchesInfoService>();
 builder.Services.AddTransient<IProductTypesService, ProductTypesService>();
+builder.Services.AddTransient<IAllProductProducedService, AllProductProducedService>();
 builder.Services.AddTransient<ICompaniesInfoService, CompaniesInfoService>();
+builder.Services.AddTransient<IDistributionOperationService, DistributionOperationService>();
 
 
 builder.Services.AddMediatR(typeof(Startup));

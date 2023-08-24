@@ -1,5 +1,5 @@
 ﻿using ElkoodTask.Queries;
-using ElkoodTask.Servies;
+using ElkoodTask.Repositories.BranchTypeRepository;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 

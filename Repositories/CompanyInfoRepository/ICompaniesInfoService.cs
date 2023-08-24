@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ElkoodTask.Models;
-
-namespace ElkoodTask.Servies
+﻿namespace ElkoodTask.Repositories.CompanyInfoRepository
 {
     public interface ICompaniesInfoService
     {

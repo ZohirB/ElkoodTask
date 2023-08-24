@@ -1,7 +1,6 @@
-﻿using ElkoodTask.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Servies
+namespace ElkoodTask.Repositories.BranchTypeRepository
 {
     public class BranchTypesService : IBranchTypesService
     {
@@ -22,7 +21,7 @@ namespace ElkoodTask.Servies
             return await _context.BranchTypes.SingleOrDefaultAsync(bt => bt.Id == id);
         }
         
-        public async Task<BranchType> AddBranchType(BranchType branchType)
+        public async Task<BranchType> CreateBranchType(BranchType branchType)
         {
             await _context.AddAsync(branchType);
             _context.SaveChanges();

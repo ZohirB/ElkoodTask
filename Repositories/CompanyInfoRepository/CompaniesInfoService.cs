@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ElkoodTask.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Servies
+namespace ElkoodTask.Repositories.CompanyInfoRepository
 {
     public class CompaniesInfoService : ICompaniesInfoService
     {

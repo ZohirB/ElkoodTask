@@ -1,13 +1,10 @@
 ﻿using ElkoodTask.Queries;
-using ElkoodTask.Servies;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BranchTypesController : ControllerBase
     {
@@ -18,7 +15,7 @@ namespace ElkoodTask.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllBranchTypes()
         {
             var query = new GetAllBranchTypeQuery();
             var result = await _mediator.Send(query);
@@ -26,7 +23,7 @@ namespace ElkoodTask.Controllers
         }
         
         [HttpPost]
-        public async Task <IActionResult> CreateAsync(CreateBranchTypeCommand command)
+        public async Task <IActionResult> CreateBranchType(CreateBranchTypeCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result); 
