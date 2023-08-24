@@ -1,6 +1,5 @@
 ﻿using ElkoodTask.Repositories.ProductionOperationRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Controllers
 {

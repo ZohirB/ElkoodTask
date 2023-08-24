@@ -1,79 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ElkoodTask.Repositories.ProductsInfoRepository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProductsInfoController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IProductsInfoService _productsInfoService;
 
-        public ProductsInfoController(ApplicationDbContext context)
+        public ProductsInfoController(ApplicationDbContext context, IProductsInfoService productsInfoService)
         {
             _context = context;
+            _productsInfoService = productsInfoService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllProductsInfo()
         {
-            var productsInfo = await _context.ProductInfo
-                .Include(pi => pi.ProductType)
-                .Select(pi => new ProductDetailsDto
-                {
-                    Id = pi.Id,
-                    Name = pi.Name,
-                    ProductTypeName = pi.ProductType.Name
-                })
-                .ToListAsync();
+            var productsInfo = await _productsInfoService.GetAllProductsInfo();
             return Ok(productsInfo);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] ProductInfoDto dto)
+        public async Task<IActionResult> CreateProductsInfo([FromBody] ProductInfoDto productInfoDto)
         {
-            var isValidProductType = await _context.ProductTypes.AnyAsync(pi => pi.Id == dto.ProductTypeId);
+            var isValidProductType = await _productsInfoService.IsValidProductType(productInfoDto.ProductTypeId);
             if (!isValidProductType)
             {
                 return BadRequest(error: "Invalid Product Type ID");
             }
 
-            var productInfo = new ProductInfo
-            {
-                Name = dto.Name,
-                ProductTypeId = dto.ProductTypeId
-            };
-            await _context.AddAsync(productInfo);
-            _context.SaveChanges();
+            var productInfo = await _productsInfoService.CreateProductsInfo(productInfoDto);
             return Ok(productInfo);
         }
-        /*
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] ProductInfo dto)
-        {
-            var productInfo = await _context.ProductInfo.SingleOrDefaultAsync(bt => bt.Id == id);
-            if (productInfo == null)
-            {
-                return NotFound(value: $"No Product Info was found with Id: {id}");
-            }
-            productInfo.Name = dto.Name;
-            productInfo.ProductTypeId = dto.ProductTypeId;
-            _context.SaveChanges();
-            return Ok(productInfo);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(int id)
-        {
-            var productInfo = await _context.ProductInfo.SingleOrDefaultAsync(bi => bi.Id == id);
-            if (productInfo == null)
-            {
-                return NotFound(value: $"No Product Info was found with Id: {id}");
-            }
-            _context.ProductInfo.Remove(productInfo);
-            _context.SaveChanges();
-            return Ok(productInfo);
-        }
-        */
     }
 }
