@@ -1,7 +1,5 @@
-﻿using ElkoodTask.Models;
-using Microsoft.AspNetCore.Http;
+﻿using ElkoodTask.Servies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Controllers
 {
@@ -9,35 +7,25 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class BranchesInfoController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IBranchesInfoService _branchesInfoService;
 
-        public BranchesInfoController(ApplicationDbContext context)
+        public BranchesInfoController(IBranchesInfoService branchesInfoService)
         {
-            _context = context;
+            _branchesInfoService = branchesInfoService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var branchesInfo = await _context.BranchInfo
-                .Include(bi => bi.CompanyInfo)
-                .Select(pi => new BranchDetailsDto
-                {
-                    Id = pi.Id,
-                    Name = pi.Name,
-                    BranchTypeName = pi.BranchType.Name,
-                    CompanyInfoName = pi.CompanyInfo.Name,
-                    location = pi.Location
-                })
-                .ToListAsync();
-            return Ok(branchesInfo);
+            var branchInfo = await _branchesInfoService.GetAllBranchInfo();
+            return Ok(branchInfo);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] BranchInfoDto dto)
+        public async Task<IActionResult> CreateAsync([FromBody] BranchInfoDto branchInfoDto)
         {
-            var isValidBranchType = await _context.BranchTypes.AnyAsync(bi => bi.Id == dto.BranchTypeId);
-            var isValidCompanyInfo = await _context.CompanyInfo.AnyAsync(bi => bi.Id == dto.CompanyInfoId);
+            var isValidBranchType = await _branchesInfoService.IsValidBranchType(branchInfoDto.BranchTypeId); 
+            var isValidCompanyInfo = await _branchesInfoService.IsValidCompanyInfo(branchInfoDto.CompanyInfoId); 
             
             if (!isValidBranchType) 
             {
@@ -47,46 +35,42 @@ namespace ElkoodTask.Controllers
             {
                 return BadRequest(error: "Invalid Company Info ID");
             }
-
-            var branchInfo = new BranchInfo
+            else
             {
-                Name = dto.Name,
-                BranchTypeId = dto.BranchTypeId,
-                CompanyInfoId = dto.CompanyInfoId,
-                Location = dto.location
-            };
-            await _context.AddAsync(branchInfo);
-            _context.SaveChanges();
-            return Ok(branchInfo);
+                var result = await _branchesInfoService.AddBranchInfo(branchInfoDto);
+                return Ok(result);
+            }
         }
         /*
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] BranchInfo dto)
         {
-            var branchInfo = await _context.BranchInfo.SingleOrDefaultAsync(bt => bt.Id == id);
-            if (branchInfo == null)
+            var isValidBranchInfo = await _branchesInfoService.IsValidBranchInfo(id);
+            if (isValidBranchInfo == null)
             {
-                return NotFound(value: $"No Branch Type was found with Id: {id}");
+                return NotFound(value: $"No Branch Info was found with Id: {id}");
             }
-            branchInfo.Name = dto.Name;
-            branchInfo.BranchTypeId = dto.BranchTypeId; 
-            branchInfo.CompanyInfoId = dto.CompanyInfoId;
-            branchInfo.Location = dto.Location;
-            _context.SaveChanges();
-            return Ok(branchInfo);
+            else
+            {
+                var branchInfo = _branchesInfoService.AddBranchInfo(dto);
+                return Ok(branchInfo); 
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var branchInfo = await _context.BranchInfo.SingleOrDefaultAsync(bi => bi.Id == id);
-            if (branchInfo == null)
+            var isValidBranchInfo = await _branchesInfoService.IsValidBranchInfo(id);
+            if (isValidBranchInfo == null)
             {
                 return NotFound(value: $"No Branch Info was found with Id: {id}");
             }
-            _context.BranchInfo.Remove(branchInfo);
-            _context.SaveChanges();
-            return Ok(branchInfo);
+            else
+            {
+                var branchInfo = _branchesInfoService.DeleteBranchInfo(isValidBranchInfo);
+                return Ok(branchInfo);  
+            }
+
         }
         */
     }

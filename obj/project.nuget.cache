@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "3q4i7GR2SVFMYlSf108U82wMJJAtg1i/80wfXOMr9mOxaykIaaezwwucLPrrc+ILQUx3eqIfDazGcjo6flyaCQ==",
+  "dgSpecHash": "YpbWIVBYwwESD509G7ah6jkL/adTb90AFxvxD52kIMAYvNqMy6xk3UQKTkB1nY9c1hifDrXiRMQ6ZgqzEQdxOg==",
   "success": true,
   "projectFilePath": "C:\\Users\\zohir\\OneDrive\\Desktop\\Training Projects\\ElkoodTask\\ElkoodTask.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\zohir\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\zohir\\.nuget\\packages\\mediatr\\7.0.0\\mediatr.7.0.0.nupkg.sha512",
+    "C:\\Users\\zohir\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\7.0.0\\mediatr.extensions.microsoft.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\zohir\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.5\\microsoft.aspnetcore.openapi.7.0.5.nupkg.sha512",
     "C:\\Users\\zohir\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",
     "C:\\Users\\zohir\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.9\\microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512",

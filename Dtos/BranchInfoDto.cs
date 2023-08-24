@@ -10,6 +10,6 @@
         public int CompanyInfoId { get; set; }
 
         [MaxLength(length: 100)]
-        public string location { get; set; }
+        public string Location { get; set; }
     }
 }

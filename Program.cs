@@ -1,5 +1,13 @@
+using System;
+using System.Collections.Generic;
+using ElkoodTask.Models;
 using ElkoodTask.Servies;
+using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
  
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +27,12 @@ builder.Services.AddEndpointsApiExplorer();
 
 //I created only 3 interface instead of creating all of it, Beacuse the time.... Sorry :-( 
 builder.Services.AddTransient<IBranchTypesService, BranchTypesService>();
+builder.Services.AddTransient<IBranchesInfoService, BranchesInfoService>();
 builder.Services.AddTransient<IProductTypesService, ProductTypesService>();
 builder.Services.AddTransient<ICompaniesInfoService, CompaniesInfoService>();
 
+
+builder.Services.AddMediatR(typeof(Startup));
 builder.Services.AddCors();
 
 builder.Services.AddSwaggerGen(options =>
@@ -82,3 +93,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.Run();
+
+
+
+public class Startup
+{
+    
+}

@@ -1,7 +1,9 @@
 ﻿
+using MediatR;
+
 namespace ElkoodTask.Models
 {
-    public class BranchType
+    public class BranchType : IRequest<Unit>
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

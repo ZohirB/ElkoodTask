@@ -1,4 +1,7 @@
-﻿using ElkoodTask.Servies;
+﻿using System.Threading.Tasks;
+using ElkoodTask.Dtos;
+using ElkoodTask.Models;
+using ElkoodTask.Servies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,37 +12,32 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class CompaniesInfoController : ControllerBase
     {
-        private readonly ICompaniesInfoService companiesInfoService;
+        private readonly ICompaniesInfoService _companiesInfoService;
 
         public CompaniesInfoController(ICompaniesInfoService companiesInfoService)
         {
-            this.companiesInfoService = companiesInfoService;
+            this._companiesInfoService = companiesInfoService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var CompanyInfo = await companiesInfoService.GetAll();
-            return Ok(CompanyInfo);
+            var companyInfo = await _companiesInfoService.GetAllCompanyInfo();
+            return Ok(companyInfo);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CompanyInfoDto dto)
+        public async Task<IActionResult> CreateAsync(CompanyInfoDto companyInfoDto)
         {
-            var companyInfo = new CompanyInfo { 
-                Name = dto.Name, 
-                Activity = dto.activity,
-                EstablishmentDate = dto.establishmentDate,
-                Location = dto.location
-            };
-            await companiesInfoService.Add(companyInfo);
+            var companyInfo = await _companiesInfoService.AddCompanyInfo(companyInfoDto);
             return Ok(companyInfo);
         }
+        
         /*
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] CompanyInfo dto)
         {
-            var companyInfo = await companiesInfoService.GetById(id);
+            var companyInfo = await companiesInfoService.GetCompanyInfoById(id);
             if (companyInfo == null)
             {
                 return NotFound(value: $"No Company Info was found with Id: {id}");
@@ -48,19 +46,19 @@ namespace ElkoodTask.Controllers
             companyInfo.Activity = dto.Activity;
             companyInfo.EstablishmentDate = dto.EstablishmentDate;
             companyInfo.Location = dto.Location;
-            companiesInfoService.Update(companyInfo);   
+            companiesInfoService.UpdateCompanyInfo(companyInfo);   
             return Ok(companyInfo);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var companyInfo = await companiesInfoService.GetById(id);
+            var companyInfo = await companiesInfoService.GetCompanyInfoById(id);
             if (companyInfo == null)
             {
                 return NotFound(value: $"No Company Info was found with Id: {id}");
             }
-            companiesInfoService.Delete(companyInfo);
+            companiesInfoService.DeleteCompanyInfo(companyInfo);
             return Ok(companyInfo);
         }
         */

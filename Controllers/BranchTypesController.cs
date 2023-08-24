@@ -1,4 +1,6 @@
-﻿using ElkoodTask.Servies;
+﻿using ElkoodTask.Queries;
+using ElkoodTask.Servies;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,52 +11,25 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class BranchTypesController : ControllerBase
     {
-        private readonly IBranchTypesService branchTypesService;
-
-        public BranchTypesController(IBranchTypesService branchTypesService)
+        private readonly IMediator _mediator;
+        public BranchTypesController(IMediator mediator)
         {
-            this.branchTypesService = branchTypesService;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var BranchTypes = await branchTypesService.GetAll();
-            return Ok(BranchTypes);
+            var query = new GetAllBranchTypeQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
-
+        
         [HttpPost]
-        public async Task <IActionResult> CreateAsync(BranchTypeDto dto)
+        public async Task <IActionResult> CreateAsync(CreateBranchTypeCommand command)
         {
-            var branchType = new BranchType { Name = dto.Name};
-            await branchTypesService.Add(branchType);
-            return Ok(branchType); 
+            var result = await _mediator.Send(command);
+            return Ok(result); 
         }
-        /*
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(int id, [FromBody] BranchType dto)
-        {
-            var  branchType = await branchTypesService.GetById(id);
-            if (branchType == null)
-            {
-                return NotFound(value: $"No Branch Type was found with Id: {id}");
-            }
-            branchType.Name = dto.Name;
-            branchTypesService.Update(branchType);
-            return Ok(branchType);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync (int id)
-        {
-            var branchType = await branchTypesService.GetById(id);
-            if (branchType == null)
-            {
-                return NotFound(value: $"No Branch Type was found with Id: {id}");
-            }
-            branchTypesService.Delete(branchType);
-            return Ok(branchType);
-        }
-        */
     }
 }

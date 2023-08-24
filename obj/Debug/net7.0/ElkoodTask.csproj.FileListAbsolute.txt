@@ -117,3 +117,5 @@ C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\obj\Debug\net7.0\El
 C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\obj\Debug\net7.0\ref\ElkoodTask.dll
 C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\bin\Debug\net7.0\Npgsql.dll
 C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\bin\Debug\net7.0\MediatR.dll
+C:\Users\zohir\OneDrive\Desktop\Training Projects\ElkoodTask\bin\Debug\net7.0\MediatR.Extensions.Microsoft.DependencyInjection.dll

@@ -1,4 +1,6 @@
-﻿using ElkoodTask.Models;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ElkoodTask.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Servies
@@ -10,31 +12,37 @@ namespace ElkoodTask.Servies
         {
             _context = context;
         }
-        public async Task<CompanyInfo> Add(CompanyInfo companyInfo)
+        
+        public async Task<IEnumerable<CompanyInfo>> GetAllCompanyInfo()
         {
+            return await _context.CompanyInfo.ToListAsync();
+        }
+        public async Task<CompanyInfo> AddCompanyInfo(CompanyInfoDto companyInfoDto)
+        {
+            var companyInfo = new CompanyInfo { 
+                Name = companyInfoDto.Name, 
+                Activity = companyInfoDto.activity,
+                EstablishmentDate = companyInfoDto.establishmentDate,
+                Location = companyInfoDto.location
+            };
             await _context.AddAsync(companyInfo);
             _context.SaveChanges();
             return companyInfo;
         }
 
-        public CompanyInfo Delete(CompanyInfo companyInfo)
+        public CompanyInfo DeleteCompanyInfo(CompanyInfo companyInfo)
         {
             _context.Remove(companyInfo);
             _context.SaveChanges();
             return companyInfo;
         }
 
-        public async Task<IEnumerable<CompanyInfo>> GetAll()
-        {
-            return await _context.CompanyInfo.ToListAsync();
-        }
-
-        public async Task<CompanyInfo> GetById(int id)
+        public async Task<CompanyInfo> GetCompanyInfoById(int id)
         {
             return await _context.CompanyInfo.SingleOrDefaultAsync(ci => ci.Id == id);
         }
 
-        public CompanyInfo Update(CompanyInfo companyInfo)
+        public CompanyInfo UpdateCompanyInfo(CompanyInfo companyInfo)
         {
             _context.Update(companyInfo);
             _context.SaveChanges();
