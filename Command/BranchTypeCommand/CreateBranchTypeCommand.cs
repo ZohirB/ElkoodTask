@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ElkoodTask.Dtos
+namespace ElkoodTask.Command.BranchTypeCommand
 {
     public class CreateBranchTypeCommand : IRequest<BranchType>
     {

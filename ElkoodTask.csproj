@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\CompanyInfo\" />
-    <Folder Include="Handlers\CompanyInfo\" />
+    <Folder Include="Command\CompanyInfoCommand\" />
+    <Folder Include="Handlers\CompanyInfoHandler\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Queries\CompanyInfo\" />
+    <Folder Include="Queries\CompanyInfoQuery\" />
   </ItemGroup>
 
 </Project>

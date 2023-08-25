@@ -1,8 +1,8 @@
-﻿using ElkoodTask.Queries;
+﻿using ElkoodTask.Command.BranchTypeCommand;
 using ElkoodTask.Repositories.BranchTypeRepository;
 using MediatR;
 
-namespace ElkoodTask.Handlers;
+namespace ElkoodTask.Handlers.BranchTypeHandler;
 
 public class CreateBranchTypeHandler : IRequestHandler<CreateBranchTypeCommand, BranchType>
 {

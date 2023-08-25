@@ -1,4 +1,6 @@
-﻿using ElkoodTask.Queries;
+﻿using ElkoodTask.Command.BranchTypeCommand;
+using ElkoodTask.Queries;
+using ElkoodTask.Queries.BranchTypeQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

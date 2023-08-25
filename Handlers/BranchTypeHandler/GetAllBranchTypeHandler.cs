@@ -1,9 +1,8 @@
-﻿using ElkoodTask.Queries;
+﻿using ElkoodTask.Queries.BranchTypeQuery;
 using ElkoodTask.Repositories.BranchTypeRepository;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace ElkoodTask.Handlers;
+namespace ElkoodTask.Handlers.BranchTypeHandler;
 
 public class GetAllBranchTypeHandler : IRequestHandler<GetAllBranchTypeQuery, IEnumerable<BranchType>>
 {

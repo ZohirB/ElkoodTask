@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ElkoodTask.Queries;
+namespace ElkoodTask.Queries.BranchTypeQuery;
 
 public class GetAllBranchTypeQuery : IRequest<IEnumerable<BranchType>>
 {
