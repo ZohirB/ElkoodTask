@@ -1,4 +1,7 @@
-﻿using ElkoodTask.Repositories.CompanyInfoRepository;
+﻿using ElkoodTask.Command.CompanyInfoCommand;
+using ElkoodTask.Queries.CompanyInfoQuery;
+using ElkoodTask.Repositories.CompanyInfoRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers
@@ -7,25 +10,25 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class CompaniesInfoController : ControllerBase
     {
-        private readonly ICompaniesInfoService _companiesInfoService;
-
-        public CompaniesInfoController(ICompaniesInfoService companiesInfoService)
+        private readonly IMediator _mediator;
+        public CompaniesInfoController(IMediator mediator)
         {
-            this._companiesInfoService = companiesInfoService;
+            _mediator = mediator;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAllCompaniesInfo()
         {
-            var companyInfo = await _companiesInfoService.GetAllCompanyInfo();
-            return Ok(companyInfo);
+            var query = new GetAllCompaniesInfoQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCompanyInfo(CompanyInfoDto companyInfoDto)
+        public async Task<IActionResult> CreateCompanyInfo(CreateCompanyInfoCommand command)
         {
-            var companyInfo = await _companiesInfoService.AddCompanyInfo(companyInfoDto);
-            return Ok(companyInfo);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }  
     }
 }

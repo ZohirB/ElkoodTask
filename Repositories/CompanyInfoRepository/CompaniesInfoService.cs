@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElkoodTask.Command.CompanyInfoCommand;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.CompanyInfoRepository
 {
@@ -14,7 +15,7 @@ namespace ElkoodTask.Repositories.CompanyInfoRepository
         {
             return await _context.CompanyInfo.ToListAsync();
         }
-        public async Task<CompanyInfo> AddCompanyInfo(CompanyInfoDto companyInfoDto)
+        public async Task<CompanyInfo> AddCompanyInfo(CreateCompanyInfoCommand companyInfoDto)
         {
             var companyInfo = new CompanyInfo { 
                 Name = companyInfoDto.Name, 
