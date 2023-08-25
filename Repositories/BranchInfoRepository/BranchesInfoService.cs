@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElkoodTask.Command.BranchInfoCommand;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.BranchInfoRepository;
 
@@ -27,7 +28,7 @@ public class BranchesInfoService : IBranchesInfoService
         return brancheInfo;
     }
     
-    public async Task<BranchInfo> CreateBranchInfo(BranchInfoDto branchInfoDto)
+    public async Task<BranchInfo> CreateBranchInfo(CreateBranchInfoCommand branchInfoDto)
     {
         var branchInfo = new BranchInfo
         {

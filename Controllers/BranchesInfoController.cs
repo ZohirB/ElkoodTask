@@ -1,4 +1,7 @@
-﻿using ElkoodTask.Repositories.BranchInfoRepository;
+﻿using ElkoodTask.Command.BranchInfoCommand;
+using ElkoodTask.Queries.CompanyInfoQuery;
+using ElkoodTask.Repositories.BranchInfoRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers
@@ -7,39 +10,25 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class BranchesInfoController : ControllerBase
     {
-        private readonly IBranchesInfoService _branchesInfoService;
-
-        public BranchesInfoController(IBranchesInfoService branchesInfoService)
+        private readonly IMediator _mediator;
+        public BranchesInfoController(IMediator mediator)
         {
-            _branchesInfoService = branchesInfoService;
+            _mediator = mediator;
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> GetAllBranchInfo()
         {
-            var branchInfo = await _branchesInfoService.GetAllBranchInfo();
-            return Ok(branchInfo);
+            var query = new GetAllBranchInfoQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBranchInfo([FromBody] BranchInfoDto branchInfoDto)
+        public async Task<IActionResult> CreateBranchInfo([FromBody] CreateBranchInfoCommand command)
         {
-            var isValidBranchType = await _branchesInfoService.IsValidBranchType(branchInfoDto.BranchTypeId); 
-            var isValidCompanyInfo = await _branchesInfoService.IsValidCompanyInfo(branchInfoDto.CompanyInfoId); 
-            
-            if (!isValidBranchType) 
-            {
-                return BadRequest(error: "Invalid Branch Type ID");
-            }
-            if (!isValidCompanyInfo)
-            {
-                return BadRequest(error: "Invalid Company Info ID");
-            }
-            else
-            {
-                var result = await _branchesInfoService.CreateBranchInfo(branchInfoDto);
-                return Ok(result);
-            }
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }
