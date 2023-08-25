@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Command\AllProductProducedCommand\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

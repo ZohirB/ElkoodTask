@@ -1,8 +1,8 @@
-﻿using ElkoodTask.Queries.CompanyInfoQuery;
+﻿using ElkoodTask.Queries.BranchInfoQuery;
 using ElkoodTask.Repositories.BranchInfoRepository;
 using MediatR;
 
-namespace ElkoodTask.Handlers.CompanyInfoHandler;
+namespace ElkoodTask.Handlers.BranchInfoHandler;
 
 public class GetAllBranchInfoHandler : IRequestHandler<GetAllBranchInfoQuery, IEnumerable<BranchDetailsDto>>
 {

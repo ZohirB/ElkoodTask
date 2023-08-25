@@ -1,4 +1,6 @@
-﻿using ElkoodTask.Repositories.AllProductProducedRepository;
+﻿using ElkoodTask.Queries.AllProductProducedQuery;
+using ElkoodTask.Repositories.AllProductProducedRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers
@@ -7,29 +9,18 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class AllProductsProducedController : ControllerBase
     {
-        private readonly IAllProductProducedService _allProductProducedService;
+        private readonly IMediator _mediator;
 
-        public AllProductsProducedController(IAllProductProducedService allProductProducedService)
+        public AllProductsProducedController(IMediator mediator)
         {
-            _allProductProducedService = allProductProducedService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductProducedDetailsDto>>> GetProductDetails(string companyName, DateTime startDate, DateTime endDate)
+        public async Task<ActionResult<List<ProductProducedDetailsDto>>> GetProductDetails([FromQuery] GetAllProductProducedQuery query)
         {
-            var isValidcompanyName = await _allProductProducedService.IsValidCompanyName(companyName);
-            if (!isValidcompanyName)
-            {
-                return BadRequest(error: "Invalid Company Name");
-            }
-
-            var productDetails =
-                await _allProductProducedService.GetAllProductProduced(companyName, startDate, endDate);
-            if (!productDetails.Any())
-            {
-                return Content("There is no production recorded for the company between the entered date");
-            }
-            return Ok(productDetails);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
     }
 }

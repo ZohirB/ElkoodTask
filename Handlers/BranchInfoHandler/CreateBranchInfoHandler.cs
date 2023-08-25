@@ -15,13 +15,13 @@ public class CreateBranchInfoHandler : IRequestHandler<CreateBranchInfoCommand, 
 
     public async Task<BranchInfo> Handle(CreateBranchInfoCommand request, CancellationToken cancellationToken)
     {
+        //TODO find solution for checking response Create Branch Info
         var isValidBranchType = await _branchesInfoService.IsValidBranchType(request.BranchTypeId); 
         var isValidCompanyInfo = await _branchesInfoService.IsValidCompanyInfo(request.CompanyInfoId); 
         
         var result = await _branchesInfoService.CreateBranchInfo(request);
         return result;
         
-        //TODO find solution for checking response
         /*
         if (!isValidBranchType) 
         {

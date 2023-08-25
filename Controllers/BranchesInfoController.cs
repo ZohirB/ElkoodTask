@@ -1,6 +1,5 @@
 ﻿using ElkoodTask.Command.BranchInfoCommand;
-using ElkoodTask.Queries.CompanyInfoQuery;
-using ElkoodTask.Repositories.BranchInfoRepository;
+using ElkoodTask.Queries.BranchInfoQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
