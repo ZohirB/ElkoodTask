@@ -1,4 +1,7 @@
-﻿using ElkoodTask.Repositories.DistributionOperationRepository;
+﻿using ElkoodTask.Command.DistributionOperationCommand;
+using ElkoodTask.Queries.DistributionOperationsQueries;
+using ElkoodTask.Repositories.DistributionOperationRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -8,44 +11,26 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class DistributionOperationsController : ControllerBase
     {
-        private readonly IDistributionOperationService _distributionOperationService;
 
-        public DistributionOperationsController(IDistributionOperationService distributionOperationService)
+        private readonly IMediator _mediator;
+        public DistributionOperationsController(IMediator mediator)
         {
-            _distributionOperationService = distributionOperationService;
+            _mediator = mediator;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAllDistributionOperation()
         {
-            var distributionOperation = await _distributionOperationService.GetAllDistributionOperation();
-            return Ok(distributionOperation);
+            var query = new GetAllDistributionOperationsQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
         
         [HttpPost]
-        public async Task<IActionResult> AddDistributionOperation([FromBody] DistrubutionOperationDto distrubutionOperationDto)
+        public async Task<IActionResult> AddDistributionOperation([FromBody] CreateDistributionOperationCommand command)
         {
-            var totalRemainingQuantity =  await _distributionOperationService.TotalRemainingQuantity(distrubutionOperationDto);
-            if (totalRemainingQuantity < distrubutionOperationDto.quantity)
-            {
-                return BadRequest("Not enough remaining product quantity ;-)");
-            }
-
-            var isValidPrimaryBranchType = await _distributionOperationService.IsValidPrimaryBranchTypeTask(distrubutionOperationDto);
-            if (!isValidPrimaryBranchType)
-            {
-                return BadRequest(error: "Invalid Branch Type ID... you can only USE ID:2 (Secondary) for Distrubution");
-            }
-
-            var isValidSecondaryBranchType = await _distributionOperationService.IsValidSecondaryBranchType(distrubutionOperationDto);
-            if (!isValidSecondaryBranchType)
-            {
-                return BadRequest(error: "Invalid Branch Type ID... you can only USE ID:2 (Secondary) for Distrubution");
-            }
-
-            _distributionOperationService.CreateDistributionOperation(distrubutionOperationDto);
-            return Ok("The products have been transfer from Production to Distrubution");
+            var result = await _mediator.Send(command);
+            return Ok(result); 
         }
     }
 }

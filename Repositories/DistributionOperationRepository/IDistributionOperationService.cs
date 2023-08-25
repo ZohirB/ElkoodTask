@@ -1,10 +1,12 @@
-﻿namespace ElkoodTask.Repositories.DistributionOperationRepository;
+﻿using ElkoodTask.Command.DistributionOperationCommand;
+
+namespace ElkoodTask.Repositories.DistributionOperationRepository;
 
 public interface IDistributionOperationService
 {
     Task<List<DistrubutionDetailsDto>> GetAllDistributionOperation();
-    void CreateDistributionOperation(DistrubutionOperationDto distrubutionOperationDto);
-    Task<int> TotalRemainingQuantity (DistrubutionOperationDto distrubutionOperationDto);
-    Task<bool> IsValidPrimaryBranchTypeTask(DistrubutionOperationDto distrubutionOperationDto);
-    Task<bool> IsValidSecondaryBranchType(DistrubutionOperationDto distrubutionOperationDto);
+    void CreateDistributionOperation(CreateDistributionOperationCommand distrubutionOperationDto);
+    Task<int> TotalRemainingQuantity (CreateDistributionOperationCommand distrubutionOperationDto);
+    Task<bool> IsValidPrimaryBranchTypeTask(CreateDistributionOperationCommand distrubutionOperationDto);
+    Task<bool> IsValidSecondaryBranchType(CreateDistributionOperationCommand distrubutionOperationDto);
 }

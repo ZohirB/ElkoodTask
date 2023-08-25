@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElkoodTask.Command.DistributionOperationCommand;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.DistributionOperationRepository;
 
@@ -28,7 +29,7 @@ public class DistributionOperationService : IDistributionOperationService
         return distributionOperation;
     }
 
-    public async void CreateDistributionOperation(DistrubutionOperationDto distrubutionOperationDto)
+    public async void CreateDistributionOperation(CreateDistributionOperationCommand distrubutionOperationDto)
     {
         var distribution = new DistributionOperation
         {
@@ -54,7 +55,7 @@ public class DistributionOperationService : IDistributionOperationService
         await _context.SaveChangesAsync();
     }
 
-    public async Task<int> TotalRemainingQuantity(DistrubutionOperationDto distrubutionOperationDto)
+    public async Task<int> TotalRemainingQuantity(CreateDistributionOperationCommand distrubutionOperationDto)
     {
         var totalRemainingQuantity = await _context.ProductionOperations
             .Where(po => po.BranchInfoId == distrubutionOperationDto.PrimaryBranchInfoId && po.ProductInfoId == distrubutionOperationDto.ProductInfoId)
@@ -62,7 +63,7 @@ public class DistributionOperationService : IDistributionOperationService
         return totalRemainingQuantity;
     }
 
-    public async Task<bool> IsValidPrimaryBranchTypeTask(DistrubutionOperationDto distrubutionOperationDto)
+    public async Task<bool> IsValidPrimaryBranchTypeTask(CreateDistributionOperationCommand distrubutionOperationDto)
     {
         var isValidPrimaryBranchType = await _context.BranchInfo
             .Where(bt => bt.BranchTypeId == 1)
@@ -70,7 +71,7 @@ public class DistributionOperationService : IDistributionOperationService
         return isValidPrimaryBranchType;
     }
 
-    public async Task<bool> IsValidSecondaryBranchType(DistrubutionOperationDto distrubutionOperationDto)
+    public async Task<bool> IsValidSecondaryBranchType(CreateDistributionOperationCommand distrubutionOperationDto)
     {
         var isValidSecondaryBranchType = await _context.BranchInfo
             .Where(bt => bt.BranchTypeId == 2)
