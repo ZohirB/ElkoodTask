@@ -1,4 +1,7 @@
-﻿using ElkoodTask.Repositories.ProductionOperationRepository;
+﻿using ElkoodTask.Command.ProductionOprationCommand;
+using ElkoodTask.Queries.ProductionOprationQuery;
+using ElkoodTask.Repositories.ProductionOperationRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers
@@ -7,46 +10,26 @@ namespace ElkoodTask.Controllers
     [ApiController]
     public class ProductionOperationsController : ControllerBase
     {
-        private readonly IProductionOperationService _productionOperationService;
-
-        public ProductionOperationsController(IProductionOperationService productionOperationService)
+        private readonly IMediator _mediator;
+        public ProductionOperationsController(IMediator mediator)
         {
-            _productionOperationService = productionOperationService;
+            _mediator = mediator;
         }
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllProductionOperations()
         {
-            var productionOperations = await _productionOperationService.GetAllProductionOperations();
-             return Ok(productionOperations);
+            var query = new GetAllProductionOprationQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProductionOperation([FromBody] ProductionOprerationDto productionOprerationDto)
+        public async Task<IActionResult> CreateProductionOperation([FromBody] CreateProductionOprationCommand command)
         {
-            var isValidBranchInfo =
-                await _productionOperationService.IsValidBranchInfo(productionOprerationDto.BranchInfoId);
-            var isValidProductInfo =
-                await _productionOperationService.IsValidProductInfo(productionOprerationDto.ProductInfoId);
-            var isValidBranchType =
-                await _productionOperationService.IsValidBranchType(productionOprerationDto.BranchInfoId);
-            
-            if (!isValidBranchInfo)
-            {
-                return BadRequest(error: "Invalid Branch Info ID");
-            }
-            if (!isValidProductInfo)
-            {
-                return BadRequest(error: "Invalid Product Info ID");
-            }
-            if (!isValidBranchType)
-            {
-                return BadRequest(error: "Invalid Branch Type ID... you can only USE ID:1 (Primary) for production");
-            }
-
-            var productionOperation =
-                await _productionOperationService.CreateProductionOperation(productionOprerationDto);
-            return Ok(productionOperation);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

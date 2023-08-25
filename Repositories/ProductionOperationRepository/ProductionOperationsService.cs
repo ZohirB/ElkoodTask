@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ElkoodTask.Command.ProductionOprationCommand;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductionOperationRepository;
 
@@ -28,7 +29,7 @@ public class ProductionOperationsService : IProductionOperationService
         return productionOperations;
     }
 
-    public async Task<ProductionOperation> CreateProductionOperation(ProductionOprerationDto productionOprerationDto)
+    public async Task<ProductionOperation> CreateProductionOperation(CreateProductionOprationCommand productionOprerationDto)
     {
         var productionOperation = new ProductionOperation
         {
