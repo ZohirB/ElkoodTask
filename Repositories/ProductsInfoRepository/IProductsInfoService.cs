@@ -1,8 +1,10 @@
-﻿namespace ElkoodTask.Repositories.ProductsInfoRepository;
+﻿using ElkoodTask.CQRS.Command.ProductsInfoCommand;
+
+namespace ElkoodTask.Repositories.ProductsInfoRepository;
 
 public interface IProductsInfoService
-{ 
+{
     Task<List<ProductDetailsDto>> GetAllProductsInfo();
-    Task<ProductInfo> CreateProductsInfo(ProductInfoDto dto);
+    Task<ProductInfo> CreateProductsInfo(CreateProductsInfoCommand dto);
     Task<bool> IsValidProductType(int productTypeId);
 }

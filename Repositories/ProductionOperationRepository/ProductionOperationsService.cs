@@ -1,4 +1,4 @@
-﻿using ElkoodTask.Command.ProductionOprationCommand;
+﻿using ElkoodTask.CQRS.Command.ProductionOprationCommand;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductionOperationRepository;
@@ -11,7 +11,7 @@ public class ProductionOperationsService : IProductionOperationService
     {
         _context = context;
     }
-    
+
     public async Task<List<ProductionDetailsDto>> GetAllProductionOperations()
     {
         var productionOperations = await _context.ProductionOperations
@@ -20,16 +20,17 @@ public class ProductionOperationsService : IProductionOperationService
             {
                 Id = po.Id,
                 BranchInfoName = po.BranchInfo.Name,
-                ProductInfoName = po.ProductInfo.Name, 
+                ProductInfoName = po.ProductInfo.Name,
                 quantity = po.Quantity,
-                RemainingQuantity = po.RemainingQuantity,  
+                RemainingQuantity = po.RemainingQuantity,
                 date = po.Date
             })
             .ToListAsync();
         return productionOperations;
     }
 
-    public async Task<ProductionOperation> CreateProductionOperation(CreateProductionOprationCommand productionOprerationDto)
+    public async Task<ProductionOperation> CreateProductionOperation(
+        CreateProductionOprationCommand productionOprerationDto)
     {
         var productionOperation = new ProductionOperation
         {

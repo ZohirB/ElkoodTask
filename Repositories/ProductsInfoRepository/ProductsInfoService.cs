@@ -1,4 +1,4 @@
-﻿using ElkoodTask.Repositories.ProductionOperationRepository;
+﻿using ElkoodTask.CQRS.Command.ProductsInfoCommand;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductsInfoRepository;
@@ -11,7 +11,7 @@ public class ProductsInfoService : IProductsInfoService
     {
         _context = context;
     }
-    
+
     public async Task<List<ProductDetailsDto>> GetAllProductsInfo()
     {
         var productsInfo = await _context.ProductInfo
@@ -26,7 +26,7 @@ public class ProductsInfoService : IProductsInfoService
         return productsInfo;
     }
 
-    public async Task<ProductInfo> CreateProductsInfo(ProductInfoDto dto)
+    public async Task<ProductInfo> CreateProductsInfo(CreateProductsInfoCommand dto)
     {
         var productInfo = new ProductInfo
         {
@@ -40,6 +40,6 @@ public class ProductsInfoService : IProductsInfoService
 
     public Task<bool> IsValidProductType(int productTypeId)
     {
-       return _context.ProductTypes.AnyAsync(pi => pi.Id == productTypeId);
+        return _context.ProductTypes.AnyAsync(pi => pi.Id == productTypeId);
     }
 }

@@ -1,9 +1,6 @@
-﻿namespace ElkoodTask.Dtos
-{
-    public class ProductTypeDto
-    {
+﻿namespace ElkoodTask.Dtos;
 
-        [MaxLength(length: 100)]
-        public string Name { get; set; }
-    }
+public class ProductTypeDto
+{
+    [MaxLength(100)] public string Name { get; set; }
 }

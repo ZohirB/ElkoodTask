@@ -1,9 +1,8 @@
-﻿namespace ElkoodTask.Dtos
+﻿namespace ElkoodTask.Dtos;
+
+public class ProductProducedDetailsDto
 {
-    public class ProductProducedDetailsDto
-    {
-        [MaxLength(length: 100)]
-        public string ProductName { get; set; }
-        public int TotalQuantityProduced { get; set; }
-    }
+    [MaxLength(100)] public string ProductName { get; set; }
+
+    public int TotalQuantityProduced { get; set; }
 }

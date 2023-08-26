@@ -1,3 +1,4 @@
+using ElkoodTask;
 using ElkoodTask.Repositories.AllProductProducedRepository;
 using ElkoodTask.Repositories.BranchInfoRepository;
 using ElkoodTask.Repositories.BranchTypeRepository;
@@ -12,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
- 
+
 // Add services to the container.
 var connectiosString = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddTransient<DataSeeder>();
@@ -52,12 +53,12 @@ builder.Services.AddSwaggerGen(options =>
         Contact = new OpenApiContact
         {
             Name = "Zohir Boshi",
-            Email = "zohirboshi@gmail.com",
+            Email = "zohirboshi@gmail.com"
             //Url = new Uri("https://www.google.com")
         },
         License = new OpenApiLicense
         {
-            Name = "My license",
+            Name = "My license"
             //Url = new Uri("https://www.google.com")
         }
     });
@@ -68,7 +69,8 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\""
+        Description =
+            "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\""
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -94,6 +96,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseCors(c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseAuthorization();
 
@@ -101,8 +104,9 @@ app.MapControllers();
 app.Run();
 
 
-
-public class Startup
+namespace ElkoodTask
 {
-    
+    public class Startup
+    {
+    }
 }

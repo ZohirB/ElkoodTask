@@ -1,31 +1,27 @@
 ﻿using ElkoodTask.Repositories.ProductsProducedRepository;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Controllers
+namespace ElkoodTask.Controllers;
+
+[Route("api/[controller]/[action]")]
+[ApiController]
+public class ProductsProducedController : ControllerBase
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ProductsProducedController : ControllerBase
+    private readonly IProductsProducedService _productsProducedService;
+
+    public ProductsProducedController(IProductsProducedService productsProducedService)
     {
-        private IProductsProducedService _productsProducedService;
+        _productsProducedService = productsProducedService;
+    }
 
-        public ProductsProducedController(IProductsProducedService productsProducedService)
-        {
-            _productsProducedService = productsProducedService;
-        }
-
-        [HttpGet]
-        public IActionResult GetAllProductsProduced(string companyName, int primaryBranchId, DateTime fromDate, DateTime toDate)
-        {
-            var isValidPrimaryBranch = _productsProducedService.IsValidPrimaryBranch(primaryBranchId, companyName);
-            if (isValidPrimaryBranch == null)
-            {
-                return BadRequest("Invalid primary branch or company name.");
-            }
-            var quantitiesByProductName = _productsProducedService.GetAllProductsProduced(primaryBranchId, fromDate, toDate);
-            return Ok(quantitiesByProductName);
-        }
+    [HttpGet]
+    public IActionResult GetAllProductsProduced(string companyName, int primaryBranchId, DateTime fromDate,
+        DateTime toDate)
+    {
+        var isValidPrimaryBranch = _productsProducedService.IsValidPrimaryBranch(primaryBranchId, companyName);
+        if (isValidPrimaryBranch == null) return BadRequest("Invalid primary branch or company name.");
+        var quantitiesByProductName =
+            _productsProducedService.GetAllProductsProduced(primaryBranchId, fromDate, toDate);
+        return Ok(quantitiesByProductName);
     }
 }

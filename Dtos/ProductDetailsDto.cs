@@ -1,11 +1,9 @@
-﻿namespace ElkoodTask.Dtos
+﻿namespace ElkoodTask.Dtos;
+
+public class ProductDetailsDto
 {
-    public class ProductDetailsDto
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Name { get; set; }
-        public string ProductTypeName { get; set; }
-
-    }
+    public string Name { get; set; }
+    public string ProductTypeName { get; set; }
 }

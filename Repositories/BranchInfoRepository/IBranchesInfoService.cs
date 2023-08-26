@@ -1,4 +1,4 @@
-﻿using ElkoodTask.Command.BranchInfoCommand;
+﻿using ElkoodTask.CQRS.Command.BranchInfoCommand;
 
 namespace ElkoodTask.Repositories.BranchInfoRepository;
 
@@ -10,7 +10,6 @@ public interface IBranchesInfoService
     Task<BranchInfo> DeleteBranchInfo(BranchInfo branchInfo);
     Task<bool> IsValidBranchType(int branchTypeId);
     Task<bool> IsValidCompanyInfo(int companyInfoId);
-    
+
     Task<BranchInfo> IsValidBranchInfo(int companyInfoId);
-    
 }

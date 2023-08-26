@@ -1,4 +1,4 @@
-﻿using ElkoodTask.Command.DistributionOperationCommand;
+﻿using ElkoodTask.CQRS.Command.DistributionOperationCommand;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.DistributionOperationRepository;
@@ -42,7 +42,9 @@ public class DistributionOperationService : IDistributionOperationService
         _context.DistributionOperations.Add(distribution);
         var remainingQuantityToUpdate = distrubutionOperationDto.quantity;
         var productionOperations = await _context.ProductionOperations
-            .Where(po => po.BranchInfoId == distrubutionOperationDto.PrimaryBranchInfoId && po.ProductInfoId == distrubutionOperationDto.ProductInfoId)
+            .Where(po =>
+                po.BranchInfoId == distrubutionOperationDto.PrimaryBranchInfoId &&
+                po.ProductInfoId == distrubutionOperationDto.ProductInfoId)
             .OrderBy(po => po.Date)
             .ToListAsync();
         foreach (var production in productionOperations)
@@ -52,13 +54,16 @@ public class DistributionOperationService : IDistributionOperationService
             production.RemainingQuantity -= quantityToUpdate;
             remainingQuantityToUpdate -= quantityToUpdate;
         }
+
         await _context.SaveChangesAsync();
     }
 
     public async Task<int> TotalRemainingQuantity(CreateDistributionOperationCommand distrubutionOperationDto)
     {
         var totalRemainingQuantity = await _context.ProductionOperations
-            .Where(po => po.BranchInfoId == distrubutionOperationDto.PrimaryBranchInfoId && po.ProductInfoId == distrubutionOperationDto.ProductInfoId)
+            .Where(po =>
+                po.BranchInfoId == distrubutionOperationDto.PrimaryBranchInfoId &&
+                po.ProductInfoId == distrubutionOperationDto.ProductInfoId)
             .SumAsync(po => po.RemainingQuantity);
         return totalRemainingQuantity;
     }

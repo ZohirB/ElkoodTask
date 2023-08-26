@@ -1,39 +1,33 @@
-﻿using ElkoodTask.Repositories.ProductsInfoRepository;
+﻿using ElkoodTask.CQRS.Command.ProductsInfoCommand;
+using ElkoodTask.CQRS.Queries.ProductsInfoQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Controllers
+namespace ElkoodTask.Controllers;
+
+[Route("api/[controller]/[action]")]
+[ApiController]
+public class ProductsInfoController : ControllerBase
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ProductsInfoController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public ProductsInfoController(IMediator mediator)
     {
-        private readonly IProductsInfoService _productsInfoService;
+        _mediator = mediator;
+    }
 
-        public ProductsInfoController(IProductsInfoService productsInfoService)
-        {
-            _productsInfoService = productsInfoService;
-        }
+    [HttpGet]
+    public async Task<IActionResult> GetAllProductsInfo()
+    {
+        var query = new GetAllProductsInfoQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllProductsInfo()
-        {
-            var productsInfo = await _productsInfoService.GetAllProductsInfo();
-            return Ok(productsInfo);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateProductsInfo([FromBody] ProductInfoDto productInfoDto)
-        {
-            var isValidProductType = await _productsInfoService.IsValidProductType(productInfoDto.ProductTypeId);
-            if (!isValidProductType)
-            {
-                return BadRequest(error: "Invalid Product Type ID");
-            }
-
-            var productInfo = await _productsInfoService.CreateProductsInfo(productInfoDto);
-            return Ok(productInfo);
-        }
+    [HttpPost]
+    public async Task<IActionResult> CreateProductsInfo([FromBody] CreateProductsInfoCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
     }
 }

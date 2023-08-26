@@ -1,4 +1,4 @@
-﻿using ElkoodTask.Command.BranchInfoCommand;
+﻿using ElkoodTask.CQRS.Command.BranchInfoCommand;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.BranchInfoRepository;
@@ -27,7 +27,7 @@ public class BranchesInfoService : IBranchesInfoService
             .ToListAsync();
         return brancheInfo;
     }
-    
+
     public async Task<BranchInfo> CreateBranchInfo(CreateBranchInfoCommand branchInfoDto)
     {
         var branchInfo = new BranchInfo
@@ -41,12 +41,12 @@ public class BranchesInfoService : IBranchesInfoService
         await _context.SaveChangesAsync();
         return branchInfo;
     }
-    
+
     public async Task<BranchInfo> UpdateBranchInfo(int id, BranchInfo branchInfoRequest)
     {
         var branchInfo = await IsValidBranchInfo(id);
         branchInfo.Name = branchInfoRequest.Name;
-        branchInfo.BranchTypeId = branchInfoRequest.BranchTypeId; 
+        branchInfo.BranchTypeId = branchInfoRequest.BranchTypeId;
         branchInfo.CompanyInfoId = branchInfoRequest.CompanyInfoId;
         branchInfo.Location = branchInfoRequest.Location;
         await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ public class BranchesInfoService : IBranchesInfoService
         await _context.SaveChangesAsync();
         return branchInfo;
     }
-    
+
     public async Task<bool> IsValidBranchType(int branchTypeId)
     {
         return await _context.BranchTypes.AnyAsync(bi => bi.Id == branchTypeId);
@@ -69,6 +69,7 @@ public class BranchesInfoService : IBranchesInfoService
     {
         return await _context.CompanyInfo.AnyAsync(bi => bi.Id == companyInfoId);
     }
+
     public async Task<BranchInfo> IsValidBranchInfo(int branchInfoId)
     {
         var branchInfo = await _context.BranchInfo.SingleOrDefaultAsync(bi => bi.Id == branchInfoId);
