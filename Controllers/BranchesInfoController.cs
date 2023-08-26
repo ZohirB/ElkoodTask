@@ -18,7 +18,7 @@ public class BranchesInfoController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllBranchInfo()
+    public async Task<IActionResult> GetAllBranchInfo() 
     {
         var query = new GetAllBranchInfoQuery();
         var result = await _mediator.Send(query);
