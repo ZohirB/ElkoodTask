@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Elkood.Application.OperationResponses;
+using MediatR;
 
 namespace ElkoodTask.CQRS.Command.BranchInfoCommand;
 
-public class CreateBranchInfoCommand : IRequest<BranchInfo>
+public class CreateBranchInfoCommand : IRequest<OperationResponse<BranchInfo>>
 {
     [MaxLength(100)] public string Name { get; set; }
 

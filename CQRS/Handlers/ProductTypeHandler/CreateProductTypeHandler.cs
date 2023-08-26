@@ -1,5 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductionOprationCommand;
-using ElkoodTask.CQRS.Command.ProductTypeCommand;
+﻿using ElkoodTask.CQRS.Command.ProductTypeCommand;
 using ElkoodTask.Repositories.ProductTypeRepository;
 using MediatR;
 
@@ -18,6 +17,6 @@ public class CreateProductTypeHandler : IRequestHandler<CreateProductTypeCommand
     {
         var productType = new ProductType { Name = request.Name };
         await productTypesService.CreateProductType(productType);
-        return productType;    
+        return productType;
     }
 }

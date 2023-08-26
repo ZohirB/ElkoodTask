@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using Elkood.Application.OperationResponses;
+using MediatR;
 
 namespace ElkoodTask.CQRS.Command.DistributionOperationCommand;
 
-public class CreateDistributionOperationCommand : IRequest<DistributionOperation>
+public class CreateDistributionOperationCommand : IRequest<OperationResponse<DistributionOperation>>
 {
     public int PrimaryBranchInfoId { get; set; }
     public int SecondaryBranchInfoId { get; set; }

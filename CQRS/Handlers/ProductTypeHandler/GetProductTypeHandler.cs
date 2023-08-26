@@ -16,6 +16,6 @@ public class GetProductTypeHandler : IRequestHandler<GetProductTypeQuery, IEnume
     public async Task<IEnumerable<ProductType>> Handle(GetProductTypeQuery request, CancellationToken cancellationToken)
     {
         var productTypes = await productTypesService.GetAllProductTypes();
-        return productTypes;    
+        return productTypes;
     }
 }

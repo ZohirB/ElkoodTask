@@ -1,6 +1,5 @@
 ﻿using ElkoodTask.CQRS.Command.ProductTypeCommand;
 using ElkoodTask.CQRS.Queries.ProductTypeQuery;
-using ElkoodTask.Repositories.ProductTypeRepository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +9,6 @@ namespace ElkoodTask.Controllers;
 [ApiController]
 public class ProductTypesController : ControllerBase
 {
-    
     private readonly IMediator _mediator;
 
     public ProductTypesController(IMediator mediator)

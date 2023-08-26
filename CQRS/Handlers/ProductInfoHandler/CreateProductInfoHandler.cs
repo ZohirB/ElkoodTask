@@ -1,10 +1,13 @@
-﻿using ElkoodTask.CQRS.Command.ProductInfoCommand;
+﻿using Elkood.Application.OperationResponses;
+using Elkood.Domain.Exceptions;
+using Elkood.Domain.Exceptions.Http;
+using ElkoodTask.CQRS.Command.ProductInfoCommand;
 using ElkoodTask.Repositories.ProductsInfoRepository;
 using MediatR;
 
 namespace ElkoodTask.CQRS.Handlers.ProductInfoHandler;
 
-public class CreateProductInfoHandler : IRequestHandler<CreateProductInfoCommand, ProductInfo>
+public class CreateProductInfoHandler : IRequestHandler<CreateProductInfoCommand, OperationResponse<ProductInfo>>
 {
     private readonly IProductsInfoService _productsInfoService;
 
@@ -13,17 +16,12 @@ public class CreateProductInfoHandler : IRequestHandler<CreateProductInfoCommand
         _productsInfoService = productsInfoService;
     }
 
-    public async Task<ProductInfo> Handle(CreateProductInfoCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResponse<ProductInfo>> Handle(CreateProductInfoCommand request,
+        CancellationToken cancellationToken)
     {
-        //TODO find solution for checking response Create Create new Products Info
+        var isValidProductType = await _productsInfoService.IsValidProductType(request.ProductTypeId);
+        if (!isValidProductType) return new HttpMessage("Invalid Product Type ID", HttpStatusCode.BadRequest400);
 
-        /*
-        var isValidProductType = await _productsInfoService.IsValidProductType(productInfoDto.ProductTypeId);
-        if (!isValidProductType)
-        {
-            return BadRequest(error: "Invalid Product Type ID");
-        }
-        */
         var productInfo = await _productsInfoService.CreateProductsInfo(request);
         return productInfo;
     }

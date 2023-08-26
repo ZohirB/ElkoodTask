@@ -1,4 +1,5 @@
-﻿using ElkoodTask.CQRS.Command.ProductionOprationCommand;
+﻿using Elkood.Application.OperationResponses;
+using ElkoodTask.CQRS.Command.ProductionOprationCommand;
 using ElkoodTask.CQRS.Queries.ProductionOprationQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,6 @@ public class ProductionOperationsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProductionOperation([FromBody] CreateProductionOprationCommand command)
     {
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        return await _mediator.Send(command).ToJsonResultAsync();
     }
 }

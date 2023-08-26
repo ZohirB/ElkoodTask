@@ -1,4 +1,5 @@
-﻿using ElkoodTask.CQRS.Queries.ProductProducedQuery;
+﻿using Elkood.Application.OperationResponses;
+using ElkoodTask.CQRS.Queries.ProductProducedQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,6 @@ public class ProductsProducedController : ControllerBase
     public async Task<ActionResult<List<ProductProducedDetailsDto>>> GetAllProductsProduced(
         [FromQuery] GetAllProductProducedQuery query)
     {
-        var result = await _mediator.Send(query);
-        return Ok(result);
+        return await _mediator.Send(query).ToJsonResultAsync();
     }
 }

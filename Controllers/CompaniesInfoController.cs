@@ -28,6 +28,6 @@ public class CompaniesInfoController : ControllerBase
     public async Task<IActionResult> CreateCompanyInfo(CreateCompanyInfoCommand command)
     {
         var result = await _mediator.Send(command);
-        return Ok(result);
+        return new JsonResult(result);
     }
 }

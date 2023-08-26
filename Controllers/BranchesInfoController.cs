@@ -1,4 +1,5 @@
-﻿using ElkoodTask.CQRS.Command.BranchInfoCommand;
+﻿using Elkood.Application.OperationResponses;
+using ElkoodTask.CQRS.Command.BranchInfoCommand;
 using ElkoodTask.CQRS.Queries.BranchInfoQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,6 @@ public class BranchesInfoController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateBranchInfo([FromBody] CreateBranchInfoCommand command)
     {
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        return await _mediator.Send(command).ToJsonResultAsync();
     }
 }

@@ -1,4 +1,5 @@
-﻿using ElkoodTask.CQRS.Command.DistributionOperationCommand;
+﻿using Elkood.Application.OperationResponses;
+using ElkoodTask.CQRS.Command.DistributionOperationCommand;
 using ElkoodTask.CQRS.Queries.DistributionOperationsQueries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,6 @@ public class DistributionOperationsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> AddDistributionOperation([FromBody] CreateDistributionOperationCommand command)
     {
-        var result = await _mediator.Send(command);
-        return Ok(result);
+        return await _mediator.Send(command).ToJsonResultAsync();
     }
 }
