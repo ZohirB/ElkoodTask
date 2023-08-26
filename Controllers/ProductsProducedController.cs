@@ -1,4 +1,5 @@
-﻿using ElkoodTask.Repositories.ProductsProducedRepository;
+﻿using ElkoodTask.CQRS.Queries.ProductProducedQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers;
@@ -7,21 +8,18 @@ namespace ElkoodTask.Controllers;
 [ApiController]
 public class ProductsProducedController : ControllerBase
 {
-    private readonly IProductsProducedService _productsProducedService;
+    private readonly IMediator _mediator;
 
-    public ProductsProducedController(IProductsProducedService productsProducedService)
+    public ProductsProducedController(IMediator mediator)
     {
-        _productsProducedService = productsProducedService;
+        _mediator = mediator;
     }
 
     [HttpGet]
-    public IActionResult GetAllProductsProduced(string companyName, int primaryBranchId, DateTime fromDate,
-        DateTime toDate)
+    public async Task<ActionResult<List<ProductProducedDetailsDto>>> GetAllProductsProduced(
+        [FromQuery] GetAllProductProducedQuery query)
     {
-        var isValidPrimaryBranch = _productsProducedService.IsValidPrimaryBranch(primaryBranchId, companyName);
-        if (isValidPrimaryBranch == null) return BadRequest("Invalid primary branch or company name.");
-        var quantitiesByProductName =
-            _productsProducedService.GetAllProductsProduced(primaryBranchId, fromDate, toDate);
-        return Ok(quantitiesByProductName);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 }

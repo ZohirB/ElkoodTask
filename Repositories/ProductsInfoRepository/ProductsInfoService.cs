@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductsInfoCommand;
+﻿using ElkoodTask.CQRS.Command.ProductInfoCommand;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductsInfoRepository;
@@ -26,7 +26,7 @@ public class ProductsInfoService : IProductsInfoService
         return productsInfo;
     }
 
-    public async Task<ProductInfo> CreateProductsInfo(CreateProductsInfoCommand dto)
+    public async Task<ProductInfo> CreateProductsInfo(CreateProductInfoCommand dto)
     {
         var productInfo = new ProductInfo
         {

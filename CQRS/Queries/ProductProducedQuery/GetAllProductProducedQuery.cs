@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ElkoodTask.CQRS.Queries.AllProductProducedQuery;
+namespace ElkoodTask.CQRS.Queries.ProductProducedQuery;
 
 public class GetAllProductProducedQuery : IRequest<List<ProductProducedDetailsDto>>
 {

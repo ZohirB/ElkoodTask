@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ElkoodTask.Repositories.AllProductProducedRepository;
+namespace ElkoodTask.Repositories.ProductProducedRepository;
 
-public class AllProductProducedService : IAllProductProducedService
+public class ProductProducedService : IProductProducedService
 {
     private readonly ApplicationDbContext _context;
 
-    public AllProductProducedService(ApplicationDbContext context)
+    public ProductProducedService(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<List<ProductProducedDetailsDto>> GetAllProductProduced(string companyName, DateTime startDate, DateTime endDate)
+    public async Task<List<ProductProducedDetailsDto>> GetAllProductProduced(string companyName, DateTime startDate,
+        DateTime endDate)
     {
         var productDetails = await _context.ProductionOperations
             .Include(p => p.BranchInfo)
@@ -29,6 +30,7 @@ public class AllProductProducedService : IAllProductProducedService
             .ToListAsync();
         return productDetails;
     }
+
     public async Task<bool> IsValidCompanyName(string companyName)
     {
         return await _context.CompanyInfo.AnyAsync(ci => ci.Name == companyName);

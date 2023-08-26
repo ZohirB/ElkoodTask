@@ -1,10 +1,9 @@
 ﻿using MediatR;
 
-namespace ElkoodTask.CQRS.Command.ProductsInfoCommand;
+namespace ElkoodTask.CQRS.Command.ProductInfoCommand;
 
-public class CreateProductsInfoCommand : IRequest<ProductInfo>
+public class CreateProductInfoCommand : IRequest<ProductInfo>
 {
     [MaxLength(100)] public string Name { get; set; }
-
     public int ProductTypeId { get; set; }
 }

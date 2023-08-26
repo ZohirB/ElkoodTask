@@ -1,19 +1,19 @@
-﻿using ElkoodTask.CQRS.Command.ProductsInfoCommand;
+﻿using ElkoodTask.CQRS.Command.ProductInfoCommand;
 using ElkoodTask.Repositories.ProductsInfoRepository;
 using MediatR;
 
-namespace ElkoodTask.CQRS.Handlers.ProductsInfoHandler;
+namespace ElkoodTask.CQRS.Handlers.ProductInfoHandler;
 
-public class CreateProductionInfoHandler : IRequestHandler<CreateProductsInfoCommand, ProductInfo>
+public class CreateProductInfoHandler : IRequestHandler<CreateProductInfoCommand, ProductInfo>
 {
     private readonly IProductsInfoService _productsInfoService;
 
-    public CreateProductionInfoHandler(IProductsInfoService productsInfoService)
+    public CreateProductInfoHandler(IProductsInfoService productsInfoService)
     {
         _productsInfoService = productsInfoService;
     }
 
-    public async Task<ProductInfo> Handle(CreateProductsInfoCommand request, CancellationToken cancellationToken)
+    public async Task<ProductInfo> Handle(CreateProductInfoCommand request, CancellationToken cancellationToken)
     {
         //TODO find solution for checking response Create Create new Products Info
 

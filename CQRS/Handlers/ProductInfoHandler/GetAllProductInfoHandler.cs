@@ -1,14 +1,14 @@
-﻿using ElkoodTask.CQRS.Queries.ProductsInfoQuery;
+﻿using ElkoodTask.CQRS.Queries.ProductInfoQuery;
 using ElkoodTask.Repositories.ProductsInfoRepository;
 using MediatR;
 
-namespace ElkoodTask.CQRS.Handlers.ProductsInfoHandler;
+namespace ElkoodTask.CQRS.Handlers.ProductInfoHandler;
 
-public class GetAllProductionInfoHandler : IRequestHandler<GetAllProductsInfoQuery, List<ProductDetailsDto>>
+public class GetAllProductInfoHandler : IRequestHandler<GetAllProductsInfoQuery, List<ProductDetailsDto>>
 {
     private readonly IProductsInfoService _productsInfoService;
 
-    public GetAllProductionInfoHandler(IProductsInfoService productsInfoService)
+    public GetAllProductInfoHandler(IProductsInfoService productsInfoService)
     {
         _productsInfoService = productsInfoService;
     }

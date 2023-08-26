@@ -1,31 +1,35 @@
-﻿using ElkoodTask.Repositories.ProductTypeRepository;
+﻿using ElkoodTask.CQRS.Command.ProductTypeCommand;
+using ElkoodTask.CQRS.Queries.ProductTypeQuery;
+using ElkoodTask.Repositories.ProductTypeRepository;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ElkoodTask.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 [ApiController]
 public class ProductTypesController : ControllerBase
 {
-    private readonly IProductTypesService productTypesService;
+    
+    private readonly IMediator _mediator;
 
-    public ProductTypesController(IProductTypesService productTypesService)
+    public ProductTypesController(IMediator mediator)
     {
-        this.productTypesService = productTypesService;
+        _mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllProductTypes()
     {
-        var ProductType = await productTypesService.GetAllProductTypes();
-        return Ok(ProductType);
+        var query = new GetProductTypeQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAsync(ProductTypeDto dto)
+    public async Task<IActionResult> CreateProductType(CreateProductTypeCommand command)
     {
-        var productType = new ProductType { Name = dto.Name };
-        await productTypesService.CreateProductType(productType);
-        return Ok(productType);
+        var result = await _mediator.Send(command);
+        return Ok(result);
     }
 }

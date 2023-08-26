@@ -1,16 +1,16 @@
-﻿using ElkoodTask.CQRS.Queries.AllProductProducedQuery;
-using ElkoodTask.Repositories.AllProductProducedRepository;
+﻿using ElkoodTask.CQRS.Queries.ProductProducedQuery;
+using ElkoodTask.Repositories.ProductProducedRepository;
 using MediatR;
 
-namespace ElkoodTask.CQRS.Handlers.AllProductProducedHandler;
+namespace ElkoodTask.CQRS.Handlers.ProductProducedHandler;
 
 public class GetAllProductProducedHandler : IRequestHandler<GetAllProductProducedQuery, List<ProductProducedDetailsDto>>
 {
-    private readonly IAllProductProducedService _allProductProducedService;
+    private readonly IProductProducedService _productProducedService;
 
-    public GetAllProductProducedHandler(IAllProductProducedService allProductProducedService)
+    public GetAllProductProducedHandler(IProductProducedService productProducedService)
     {
-        _allProductProducedService = allProductProducedService;
+        _productProducedService = productProducedService;
     }
 
     public async Task<List<ProductProducedDetailsDto>> Handle(GetAllProductProducedQuery request,
@@ -25,7 +25,7 @@ public class GetAllProductProducedHandler : IRequestHandler<GetAllProductProduce
         }
         */
         var productDetails =
-            await _allProductProducedService.GetAllProductProduced(request.CompanyName, request.StartDate,
+            await _productProducedService.GetAllProductProduced(request.CompanyName, request.StartDate,
                 request.EndDate);
         /*
         if (!productDetails.Any())

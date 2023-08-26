@@ -1,6 +1,6 @@
-﻿namespace ElkoodTask.Repositories.AllProductProducedRepository;
+﻿namespace ElkoodTask.Repositories.ProductProducedRepository;
 
-public interface IAllProductProducedService
+public interface IProductProducedService
 {
     Task<List<ProductProducedDetailsDto>> GetAllProductProduced(string companyName, DateTime startDate,
         DateTime endDate);
