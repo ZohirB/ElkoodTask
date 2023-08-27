@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Elkood" Version="1.0.5.1"/>
-        <PackageReference Include="LanguageExt.Core" Version="4.4.3"/>
-        <PackageReference Include="MediatR" Version="7.0.0"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
+        <PackageReference Include="Elkood" Version="1.0.5.1" />
+        <PackageReference Include="LanguageExt.Core" Version="4.4.3" />
+        <PackageReference Include="MediatR" Version="7.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,13 +20,24 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="CQRS\Command\ProductProducedCommand\"/>
-        <Folder Include="Migrations\"/>
+        <Folder Include="CQRS\Command\ProductProducedCommand\" />
+        <Folder Include="Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="ElkoodTask.API\obj\rider.project.restore.info" />
+      <None Remove="ElkoodTask.API\obj\project.nuget.cache" />
+      <None Remove="ElkoodTask.API\obj\ElkoodTask.API.csproj.nuget.g.targets" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="ElkoodTask.API\obj\project.packagespec.json" />
+      <Content Remove="ElkoodTask.API\obj\project.assets.json" />
     </ItemGroup>
 
 </Project>
