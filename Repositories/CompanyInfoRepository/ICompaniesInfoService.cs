@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.CompanyInfoCommand;
+﻿using ElkoodTask.CQRS.CompanyInfo.Commands.Create;
 
 namespace ElkoodTask.Repositories.CompanyInfoRepository;
 

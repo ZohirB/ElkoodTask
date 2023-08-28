@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductionOprationCommand;
+﻿using ElkoodTask.CQRS.ProductionOpration.Commands.Create;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductionOperationRepository;

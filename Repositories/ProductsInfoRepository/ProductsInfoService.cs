@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductInfoCommand;
+﻿using ElkoodTask.CQRS.ProductInfo.Commands.Create;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.ProductsInfoRepository;

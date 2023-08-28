@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductionOprationCommand;
+﻿using ElkoodTask.CQRS.ProductionOpration.Commands.Create;
 
 namespace ElkoodTask.Repositories.ProductionOperationRepository;
 

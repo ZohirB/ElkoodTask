@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.ProductInfoCommand;
+﻿using ElkoodTask.CQRS.ProductInfo.Commands.Create;
 
 namespace ElkoodTask.Repositories.ProductsInfoRepository;
 

@@ -1,5 +1,5 @@
-﻿using ElkoodTask.CQRS.Command.BranchTypeCommand;
-using ElkoodTask.CQRS.Queries.BranchTypeQuery;
+﻿using ElkoodTask.CQRS.BranchType.Commands.Create;
+using ElkoodTask.CQRS.BranchType.Queries.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

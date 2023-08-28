@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.DistributionOperationCommand;
+﻿using ElkoodTask.CQRS.DistributionOperation.Commands.Create;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElkoodTask.Repositories.DistributionOperationRepository;

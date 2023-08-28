@@ -1,6 +1,6 @@
 ﻿using Elkood.Application.OperationResponses;
-using ElkoodTask.CQRS.Command.ProductInfoCommand;
-using ElkoodTask.CQRS.Queries.ProductInfoQuery;
+using ElkoodTask.CQRS.ProductInfo.Commands.Create;
+using ElkoodTask.CQRS.ProductInfo.Queries.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

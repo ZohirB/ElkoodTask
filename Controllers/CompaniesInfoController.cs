@@ -1,5 +1,5 @@
-﻿using ElkoodTask.CQRS.Command.CompanyInfoCommand;
-using ElkoodTask.CQRS.Queries.CompanyInfoQuery;
+﻿using ElkoodTask.CQRS.CompanyInfo.Commands.Create;
+using ElkoodTask.CQRS.CompanyInfo.Queries.GetAll;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

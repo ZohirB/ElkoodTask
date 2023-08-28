@@ -1,4 +1,4 @@
-﻿using ElkoodTask.CQRS.Command.BranchInfoCommand;
+﻿using ElkoodTask.CQRS.BranchInfo.Commands.Create;
 
 namespace ElkoodTask.Repositories.BranchInfoRepository;
 
