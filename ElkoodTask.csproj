@@ -25,8 +25,24 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
         <Folder Include="CQRS\ProductProduced\Commands\" />
         <Folder Include="Migrations\" />
+=======
+        <Folder Include="CQRS\Command\ProductProducedCommand\" />
+        <Folder Include="Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="ElkoodTask.API\obj\rider.project.restore.info" />
+      <None Remove="ElkoodTask.API\obj\project.nuget.cache" />
+      <None Remove="ElkoodTask.API\obj\ElkoodTask.API.csproj.nuget.g.targets" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="ElkoodTask.API\obj\project.packagespec.json" />
+      <Content Remove="ElkoodTask.API\obj\project.assets.json" />
+>>>>>>> origin/master
     </ItemGroup>
 
 </Project>
